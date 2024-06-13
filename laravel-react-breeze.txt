@@ -1,0 +1,121 @@
+CREARE APP CON BACKEND LARAVEL E FRONTEND REACT + AUTENTICAZIONE LARAVEL BREEZE API:
+
+crea la cartella del progetto.
+dentro la cartella progetto crea app laravel:
+
+<code>composer create-project laravel/laravel backend 10</code>
+
+scarica laravel breeze
+
+<code>composer require laravel/breeze --dev</code>
+
+installa breeze api
+
+<code>php artisan breeze:install api</code>
+
+decommenta il seedere User e fai migrazioni e seed (magari prima dai credenziali db e genera appkey se serve)
+
+<code>php artisan migrate:fresh --seed</code>
+o senza 'fresh' se non hai ancora le tabelle
+
+
+torna nella cartella principale del progetto per creare la cartella frontend
+
+<code>npm create vite@latest frontend -- --template react</code>
+puoi crearlo anche con create-react-app, in tal caso la porta del frontend da ora in poi sarà 3000 e non 5173 
+
+<code>cd frontend</code>
+<code>npm install</code>
+
+installa le dipendenze che servono per react (axios, bootstrap, router-dom...)
+
+<code>npm i axios react-router-dom  ...</code>
+
+torna in laravel
+apri il file .env inserisci queste righe:
+
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:5173  //cambia porta da 3000 a 5173
+
+SESSION_DOMAIN=localhost
+SANCTUM_STATEFUL_DOMAINS=localhost:5173
+
+torna in react
+
+crea file src/api/axios.js
+scrivici dentro:
+
+import axios from "axios";
+
+export default axios.create({
+    baseURL: 'http://localhost:8000',
+    withCredentials: true,
+    withXSRFToken: true,
+});
+
+
+
+nel jsx dove devi usare axios non importare axios from axios ma:
+import axios from "./api/axios";
+
+
+esempio stupido di chiamata:
+
+(direttamente da App.js)
+import "./App.css";
+import axios from "./api/axios";
+import { useState } from "react";
+
+
+function App() {
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+  
+    await axios.get("/sanctum/csrf-cookie");
+    await axios.post("/login", {
+      email: email,
+      password: password,
+    });
+    // await axios.get("http://localhost:8000/user");
+  }
+  
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  return (
+    <form onSubmit={(e) => handleSubmit(e)}>
+      email
+      <input
+        type="text"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      password
+      <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">invia</button>
+    </form>
+  );
+}
+
+export default App;
+
+
+
+email: test@example.com
+password: password
+
+Nella route web.php ho aggiunto:
+
+Route::get('/dashboard', function(){
+    return 'ciao';
+});
+
+poichè di default se il login ha successo rimanda alla route /dashboard, che non c'è di default.
+
+video per settare bene il file axios con cose in piu:    https://www.youtube.com/watch?v=UIdoq5ZvNJY
+repo con base app pronta:      https://github.com/AleDC91/laravel-react-auth
+
