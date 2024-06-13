@@ -16,7 +16,7 @@ export default function Nav() {
               height="100"
               className="d-inline-block align-top"
             />{' '}
-            <span className='text-white ms-3 display-5 pb-1'>DrumBits</span>
+            <span className='text-white ms-3 display-5 pb-1'>DrumBits WIP</span>
             </Link>
           </Navbar.Brand>
           <Navbar.Text className='float-end d-none'>
