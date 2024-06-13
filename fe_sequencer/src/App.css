@@ -1,0 +1,95 @@
+
+
+body {
+  background: linear-gradient(0deg, rgba(54,59,82,1) 0%, rgba(105,102,103,1) 46%, rgba(173,173,173,1) 100%);
+}
+
+.sequencer {
+    border-radius: 5px;
+    width: fit-content;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: fit-content;
+    margin: auto;
+  }
+  
+  .note {
+    border-radius: 5px;
+    height: 3em;
+    width: 3em;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    margin: 2px;
+    outline: none;
+  }
+
+  .note-rack {
+    border-radius: 5px;
+    aspect-ratio: 1;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    margin: 2px;
+    outline: none;
+    text-transform: uppercase;
+  }
+  
+  .pressed {
+    background-color: rgb(128, 0, 0);
+  }
+
+  .note:hover, .note-rack:hover{
+    background-color:#d2cfcf;
+  }
+  
+  .sequencer-row {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  
+  .note-is-active {
+    background-color: rgb(128, 0, 0);
+    border: none;
+  }
+  
+  .note-not-active {
+    background-color: solid #E0DBDB;
+  }
+
+  .active {
+    background-color: rgb(128, 0, 0);
+    border: none;
+  }
+
+  .active:hover {
+    background-color: rgb(105, 0, 0);
+    border: none;
+  }
+  
+  .not-active {
+    background-color: solid #E0DBDB;
+  }
+  
+  .toggle-play {
+    display: flex;
+  }
+
+  .note:nth-child(4n) {
+    margin-right: 10px;
+  }
+
+  .actualStep{
+    box-shadow: inset 0px 0px 10px 3px #b4b4b4
+  }
+
+  .active-rack-note {
+    background-color: rgb(128, 0, 0);
+    color: white;
+    box-shadow: inset 0px 0px 10px 5px rgb(55, 0, 0);
+    border: none;
+  }
+
+
+  
+  
